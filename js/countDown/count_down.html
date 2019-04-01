@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="author"      content="Elizabeth Alonso">
+    <meta name="description" content="Count Down with fixed Date by 2 days ahead.">
+    <style>
+        p {
+            text-align:  center;
+            font-size:   30px;
+            margin-top:  0px;
+            margin:0;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+        .font_label {
+            font-size: 15px;
+            color:   rgb(114, 114, 114);
+        }
+        .center {
+            border-radius: 1em;
+            padding:       1em;
+            position:      absolute;
+            top:           50%;
+            left:          50%;
+            margin-right:  -50%;
+            transform: translate(-50%, -50%);
+        }
+        .box {
+            width:   70px;
+            padding: 20px;
+            margin:  10px;
+            border:  1px solid rgb(160, 160, 160);
+            border-radius:    3px;
+            background-color: rgb(255, 255, 255);
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="center", id="countDown">
+        <div class="box">
+            <p id="days"></p>
+            <p class="font_label">Days</p>
+        </div>
+        <div class="box">
+            <p id="hours"></p>
+            <p class="font_label">Hours</p>
+        </div>        
+        <div class="box">
+            <p id="minutes"></p>
+            <p class="font_label">Minutes</p>
+        </div>        
+        <div class="box">
+            <p id="seconds"></p>
+            <p class="font_label">Secconds</p>
+        </div>
+    </div>
+    
+    <script>
+        var futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 2);
+        
+        var cntDown = setInterval(function() {
+            
+            var currentDate = new Date().getTime();
+            
+            var distance = futureDate - currentDate;
+            
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML    = days;
+            document.getElementById("hours").innerHTML   = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+            
+            if (distance < 0) {
+                clearInterval(cntDown);
+                document.getElementById("countDown").innerHTML = "Count-Down has Ended!";
+            }
+        }, 1000);
+    </script>
+    
+</body>
+</html>

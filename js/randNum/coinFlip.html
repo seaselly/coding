@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="author"      content="Elizabeth Alonso">
+    <meta name="description" content="Coin Flip: Return a number between 0 and n">
+    <style>
+        p {
+            font-size:   25px;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+        .result {
+            font-size: 25px;
+            color:   rgb(76, 20, 150);
+        }
+        .center {
+            position:      absolute;
+            top:           40%;
+            left:          25%;
+            margin-right:  -30%;
+            transform: translate(-50%, -50%);
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="center">
+        <p>- Random number input 500:</p>
+        <p class="result", id="rand1"></p>
+        
+        <p>- Random number input 1:</p>
+        <p class="result", id="rand2"></p>
+        
+        <p>- Random number input 500:</p>
+        <p class="result", id="rand3"></p>
+        
+        <p>- Random number input 1000001:</p>
+        <p class="result", id="rand4"></p>
+        
+    </div>
+    
+    <script>
+        
+        function flip() {
+            return Math.random() >= 0.5; 
+        }
+        
+        function randomNumber(n) {
+            // n must be greater than 0
+            if(n <= 0)
+                return "[ERROR] n must be greater than 0";
+            // n must be less than 1,000,000
+            else if(n >= 1000000)
+                return "[ERROR] n must be less than 1,000,000";
+            else {
+                var random = new Date().getSeconds();
+                
+                // Flip returns a boolean, hence on result the number will be calculated
+                // based on the seccond of current time.
+                if(flip()) {
+                    random /= Math.pow(10, 2);
+                    random = Math.floor(n * random);
+
+                    if(random <= n) 
+                        return random;
+                    else
+                        randomNumber(n);
+                }
+                else {
+                    random = Math.floor(n /= random);
+                    
+                    if(random <= n) 
+                        return random;
+                    else
+                        randomNumber(n);
+                }
+            }
+        }
+        var n = randomNumber(500);
+        document.getElementById("rand1").innerHTML = n;
+        n = randomNumber(1);
+        document.getElementById("rand2").innerHTML = n;
+        n = randomNumber(500);
+        document.getElementById("rand3").innerHTML = n;
+        n = randomNumber(1000001);
+        document.getElementById("rand4").innerHTML = n;
+    </script>
+</body>
+</html>
